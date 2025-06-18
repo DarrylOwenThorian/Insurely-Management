@@ -1,0 +1,363 @@
+/* Dashboard Container and Header */
+.dashboard-container {
+    padding: 20px;
+    background-color: var(--primary-color-light); /* Assuming this is defined in global.css */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px; /* Space between dashboard container and other elements if any */
+}
+
+.dashboard-header h1 {
+    color: var(--text-color); /* Assuming this is defined in global.css */
+    margin-bottom: 10px;
+}
+
+.dashboard-header p {
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+/* Metrics Grid (if you're using this layout for multiple metric cards) */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* Individual Metric Card */
+.metric-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    text-align: center;
+    border-top: 5px solid var(--primary-color); /* Assuming this is defined in global.css */
+}
+
+.metric-card h2 {
+    color: var(--text-color);
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.metric-card .metric-value {
+    font-size: 2.5em;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.metric-card .card-link {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: 500;
+    transition: color var(--tran-03); /* Assuming this is defined in global.css */
+}
+
+.metric-card .card-link:hover {
+    color: var(--sidebar-color-dark); /* Assuming this is defined in global.css */
+}
+
+/* Charts Section */
+.charts-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+}
+
+.chart-card {
+    background-color: #fff;
+    padding: 20px; /* Ensure sufficient padding around chart/table content */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.chart-card h2 {
+    color: var(--text-color);
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+.chart-card > div { /* For centering chart content, if applicable */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Data Tables (for displaying policies, etc.) */
+.table-responsive {
+    overflow-x: auto;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table thead {
+    position: sticky; /* Sticky header for scrolling tables */
+    top: 0;
+    z-index: 1;
+}
+
+.data-table th, .data-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    color: var(--text-color);
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+.data-table th {
+    background-color: var(--sidebar-color); /* Use a theme color */
+    color: white;
+    font-weight: 600;
+    background-clip: padding-box;
+}
+
+.data-table tbody tr:nth-child(even) {
+    background-color: var(--primary-color-light);
+}
+
+.data-table tbody tr:hover {
+    background-color: var(--body-color);
+}
+
+/* Empty State Message (for no policies yet) */
+.empty-state-message {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: var(--primary-color-light);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-top: 20px;
+    color: var(--text-color);
+}
+
+.empty-state-message h2 {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.empty-state-message p {
+    margin-bottom: 20px;
+}
+
+/* General form styles (from user_policy_apply, if you want them here) */
+/* If these are generic form styles used across multiple forms, consider putting them in global.css */
+/* or a new 'forms.css' if many distinct forms exist. */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    min-height: calc(100vh - 120px); /* Adjust based on header/footer height */
+    box-sizing: border-box;
+}
+
+.form-card {
+    background-color: #fff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+    text-align: left;
+    margin: 0 auto;
+}
+
+.form-card h2 {
+    color: var(--text-color);
+    margin-bottom: 25px;
+    font-size: 1.8em;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 0.95em;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"],
+.form-group input[type="date"],
+.form-group input[type="tel"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box;
+    color: var(--text-color);
+    background-color: var(--primary-color-light);
+    transition: border-color var(--tran-03);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(163, 128, 204, 0.2);
+}
+
+.submit-button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color var(--tran-03), transform var(--tran-02);
+    width: 100%;
+    margin-top: 10px;
+}
+
+.submit-button:hover {
+    background-color: var(--sidebar-color-dark); /* Using a color from global.css */
+    transform: translateY(-2px);
+}
+
+.back-button {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--tran-03);
+}
+
+.back-button:hover {
+    color: var(--primary-color);
+}
+
+/* Product Detail Card Styles */
+.product-detail-card {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    max-width: 800px; /* Max width for detail card */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.product-detail-card .detail-item {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    color: var(--text-color);
+}
+
+.product-detail-card .detail-item strong {
+    color: var(--primary-color);
+    margin-right: 10px;
+    min-width: 150px;
+    display: inline-block;
+}
+
+.product-detail-card .submit-button,
+.product-detail-card .back-button {
+    margin: 10px 0; /* Adjust margin for individual buttons */
+    display: inline-block;
+    width: auto;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.85em;
+    text-transform: capitalize;
+}
+
+.status-pending {
+    background-color: #fff3cd; /* Light yellow */
+    color: #856404; /* Dark yellow text */
+    border: 1px solid #ffeeba;
+}
+
+.status-in-review {
+    background-color: #d1ecf1; /* Light blue */
+    color: #0c5460; /* Dark blue text */
+    border: 1px solid #bee5eb;
+}
+
+.status-approved {
+    background-color: #d4edda; /* Light green */
+    color: #155724; /* Dark green text */
+    border: 1px solid #c3e6cb;
+}
+
+.status-rejected {
+    background-color: #f8d7da; /* Light red */
+    color: #721c24; /* Dark red text */
+    border: 1px solid #f5c6cb;
+}
+
+/* Policy Status Badges (can reuse existing status-badge or create new ones) */
+/* Reusing existing status-badge styles is fine for these */
+.status-pending { /* Existing */
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.status-approved { /* Existing */
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.status-rejected { /* Existing */
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.status-under-review { /* New for policy */
+    background-color: #cfe2ff; /* Light blue */
+    color: #052c65; /* Dark blue */
+    border: 1px solid #9ec5fe;
+}
+
+.status-active { /* New for policy - once approved and active */
+    background-color: #d1e7dd; /* Success green */
+    color: #0f5132;
+    border: 1px solid #badbcc;
+}
+
+.status-expired { /* New for policy */
+    background-color: #fce8e8; /* Light red/grayish */
+    color: #6a1a21;
+    border: 1px solid #f8d7da;
+}
+/* Ensure status-badge class itself is defined in global.css or dashboard_styles.css */
+.status-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.85em;
+    text-transform: capitalize;
+}

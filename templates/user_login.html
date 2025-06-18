@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/product_cards.css">
+</head>
+<body>
+{% extends 'base_bare.html' %} 
+
+{% block title %}User Login{% endblock %}
+
+{% block head %}
+    {# No extra CSS needed here, as dashboard_styles.css is in base_bare.html #}
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <h2>User Login</h2>
+        {# Flash messages block removed as per previous request #}
+
+        <form method="POST" action="{{ url_for('user_login') }}">
+            <div class="form-group">
+                <label for="email_or_name">Email or Username</label>
+                <input type="text" id="email_or_name" name="email_or_name" 
+                       value="{{ request.form.email_or_name | default('') }}" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="submit-button">Login as User</button>
+        </form>
+
+        <div class="login-options">
+            <p>Don't have an account? <a href="{{ url_for('user_register') }}" class="card-link">Register here</a></p>
+            <p>Are you an Administrator? <a href="{{ url_for('admin_login') }}" class="card-link">Admin Login</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+    
+</body>
+</html>

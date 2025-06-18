@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='UserUpdate.css') }}">
+</head>
+<body>
+    <form method="POST" action="/adminPolicyManagement/update/{{polis.ID_Data_Polis}}" method="post">
+        <label for="">Nama</label>
+        <input type="text" name="Nama_Data_Polis" placeholder="Nama_Data_Polis" value="{{polis.Nama_Data_Polis}}">
+        <br>
+        <label for="">Hubungan_Data_Polis</label>
+        <input type="text" name="Hubungan_Data_Polis" placeholder="Hubungan_Data_Polis" value="{{polis.Hubungan_Data_Polis}}">
+        <br>
+        <label for="">Alamat_Data_Polis</label>
+        <input type="text" name="Alamat_Data_Polis" placeholder="Alamat_Data_Polis" value="{{polis.Alamat_Data_Polis}}">
+        <br>
+        <label for="">Nomor_Telepon_Polis</label>
+        <input type="text" name="Nomor_Telepon_Polis" placeholder="Nomor_Telepon_Polis" value="{{polis.Nomor_Telepon_Polis}}">
+        <br>
+        <input type="submit" value="Update">
+</form>
+</body>
+</html>

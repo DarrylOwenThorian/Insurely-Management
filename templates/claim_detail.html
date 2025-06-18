@@ -1,0 +1,58 @@
+{% extends 'base_user.html' %}
+
+{% block title %}Claim Details: {{ claim.ID_Klaim }}{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/dashboard_styles.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h2>Claim Details (ID: {{ claim.ID_Klaim }})</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="product-detail-card"> {# Reusing product-detail-card for layout #}
+        <div class="detail-item"><strong>Status:</strong> <span class="status-badge status-{{ claim.Status_Klaim | lower | replace(' ', '-') }}">{{ claim.Status_Klaim }}</span></div>
+        <div class="detail-item"><strong>Submitted On:</strong> {{ claim.Tanggal_Pengajuan | default('N/A') }}</div>
+        <hr>
+        <h3>Policy Information</h3>
+        <div class="detail-item"><strong>Policy ID:</strong> {{ claim.ID_Data_Polis }}</div>
+        <div class="detail-item"><strong>Policy Holder Name:</strong> {{ claim.Nama_Data_Polis }}</div>
+        <div class="detail-item"><strong>Policy Product:</strong> {{ claim.Nama_Produk }}</div>
+        <div class="detail-item"><strong>Policy Issued Date:</strong> {{ claim.Tanggal_Polis_Dibuat | default('N/A') }}</div>
+        <hr>
+        <h3>Incident Details</h3>
+        <div class="detail-item"><strong>Claim Type:</strong> {{ claim.Jenis_Klaim }}</div>
+        <div class="detail-item"><strong>Incident Date:</strong> {{ claim.Tanggal_Kejadian | default('N/A') }}</div>
+        <div class="detail-item"><strong>Incident Location:</strong> {{ claim.Lokasi_Kejadian | default('N/A') }}</div>
+        <div class="detail-item"><strong>Description:</strong></div>
+        <p>{{ claim.Deskripsi_Kejadian | default('No description provided.') }}</p>
+        {% if claim.Jumlah_Klaim %}
+            <div class="detail-item"><strong>Claim Amount:</strong> Rp{{ "{:,.0f}".format(claim.Jumlah_Klaim | float) }}</div>
+        {% endif %}
+        
+        {# If you implement document uploads, display a link here #}
+        {# {% if claim.Dokumen_Pendukung %}
+            <div class="detail-item"><strong>Supporting Documents:</strong> <a href="{{ url_for('static', filename='uploads/claims/' + claim.Dokumen_Pendukung) }}" target="_blank">View Document</a></div>
+        {% endif %} #}
+
+        {% if claim.Catatan_Admin %}
+            <hr>
+            <h3>Admin Notes</h3>
+            <p>{{ claim.Catatan_Admin }}</p>
+        {% endif %}
+
+        <hr>
+        <a href="{{ url_for('my_claims') }}" class="back-button">← Back to My Claims</a>
+    </div>
+</div>
+{% endblock %}

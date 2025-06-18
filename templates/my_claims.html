@@ -1,0 +1,49 @@
+{% extends 'base_user.html' %}
+
+{% block title %}My Claims{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/dashboard_styles.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h2>Klaim Saya</h2>
+
+    {% if claims %}
+    <div class="table-responsive">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Claim ID</th>
+                    <th>Policy Product</th>
+                    <th>Claim Type</th>
+                    <th>Incident Date</th>
+                    <th>Status</th>
+                    <th>Submitted On</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for claim in claims %}
+                <tr>
+                    <td>{{ claim.ID_Klaim }}</td>
+                    <td>{{ claim.Nama_Produk }} ({{ claim.Nama_Data_Polis }})</td>
+                    <td>{{ claim.Jenis_Klaim }}</td>
+                    <td>{{ claim.Tanggal_Kejadian | default('N/A') }}</td>
+                    <td><span class="status-badge status-{{ claim.Status_Klaim | lower | replace(' ', '-') }}">{{ claim.Status_Klaim }}</span></td>
+                    <td>{{ claim.Tanggal_Pengajuan | default('N/A') }}</td>
+                    <td><a href="{{ url_for('claim_detail', claim_id=claim.ID_Klaim) }}" class="card-link">View &rarr;</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <div class="empty-state-message">
+            <h2>Belum ada Klaim yang terdaftar</h2>
+            <a href="{{ url_for('submit_claim') }}" class="submit-button" style="display: inline-block;">Ajukan Claim &rarr;</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

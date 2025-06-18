@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/UserManagement.css') }}">
+</head>
+<body>
+{% extends 'base_admin.html' %}
+
+{% block title %}Admin - Claim Details: {{ claim.ID_Klaim }}{% endblock %}
+
+{% block content %}
+<div class="admin-dashboard-container">
+    <h2>Claim Details (ID: {{ claim.ID_Klaim }})</h2>
+
+    {# ... flash messages ... #}
+
+    <p><a href="{{ url_for('adminClaimManagement') }}" class="btn btn-info mb-3">← Back to All Claims</a></p>
+
+    <div class="form-card">
+        <h3>Claim Information</h3>
+        <form method="POST" action="{{ url_for('adminClaimDetail', claim_id=claim.ID_Klaim) }}">
+            <div class="detail-item"><strong>Status:</strong> <span class="status-badge status-{{ claim.Status_Klaim | lower | replace(' ', '-') }}">{{ claim.Status_Klaim }}</span></div>
+            <div class="detail-item"><strong>Submitted On:</strong> {{ claim.Tanggal_Pengajuan | default('N/A') }}</div>
+            <hr>
+            <h3>Policy Information</h3>
+            <div class="detail-item"><strong>Policy ID:</strong> {{ claim.ID_Data_Polis }}</div>
+            <div class="detail-item"><strong>Policy Holder Name:</strong> {{ claim.Nama_Data_Polis }}</div>
+            <div class="detail-item"><strong>Policy Product:</strong> {{ claim.Nama_Produk }}</div>
+            <div class="detail-item"><strong>Policy Issued Date:</strong> {{ claim.Tanggal_Polis_Dibuat | default('N/A') }}</div>
+            <div class="detail-item"><strong>Policy Status:</strong> <span class="status-badge status-{{ claim.Status_Polis | lower | replace(' ', '-') }}">{{ claim.Status_Polis | default('N/A') }}</span></div> {# NEW: Policy Status #}
+            <hr>
+            <h3>Incident Details</h3>
+            <div class="detail-item"><strong>Claim Type:</strong> {{ claim.Jenis_Klaim }}</div>
+            <div class="detail-item"><strong>Incident Date:</strong> {{ claim.Tanggal_Kejadian | default('N/A') }}</div>
+            <div class="detail-item"><strong>Incident Location:</strong> {{ claim.Lokasi_Kejadian | default('N/A') }}</div>
+            <div class="detail-item"><strong>Description:</strong></div>
+            <p>{{ claim.Deskripsi_Kejadian | default('No description provided.') }}</p>
+            {% if claim.Jumlah_Klaim %}
+                <div class="detail-item"><strong>Claim Amount:</strong> Rp{{ "{:,.0f}".format(claim.Jumlah_Klaim | float) }}</div>
+            {% endif %}
+            
+            {% if claim.Dokumen_Pendukung %}
+                <div class="detail-item">
+                    <strong>Claim Document:</strong> 
+                    <a href="{{ url_for('uploaded_file', filename='claims/' + claim.Dokumen_Pendukung) }}" target="_blank">View Document</a>
+                </div>
+            {% endif %} 
+
+            <hr>
+            <h3>Uploaded Policy Documents</h3> {# NEW SECTION #}
+            <div class="detail-item">
+                {% if claim.KTP_File %}
+                    <strong>KTP:</strong> <a href="{{ url_for('uploaded_file', filename='policy_docs/' + claim.KTP_File) }}" target="_blank">View KTP</a><br>
+                {% else %}
+                    <strong>KTP:</strong> N/A<br>
+                {% endif %}
+                {% if claim.NPWP_File %}
+                    <strong>NPWP:</strong> <a href="{{ url_for('uploaded_file', filename='policy_docs/' + claim.NPWP_File) }}" target="_blank">View NPWP</a><br>
+                {% else %}
+                    <strong>NPWP:</strong> N/A<br>
+                {% endif %}
+                {% if claim.KK_File %}
+                    <strong>KK:</strong> <a href="{{ url_for('uploaded_file', filename='policy_docs/' + claim.KK_File) }}" target="_blank">View KK</a>
+                {% else %}
+                    <strong>KK:</strong> N/A
+                {% endif %}
+            </div>
+
+            <hr>
+            <h3>Admin Actions</h3>
+            <div class="form-group">
+                <label for="status_klaim">Claim Status</label>
+                <select id="status_klaim" name="status_klaim" class="form-control" required>
+                    {% for status in claim_statuses %}
+                        <option value="{{ status }}" {% if claim.Status_Klaim == status %}selected{% endif %}>{{ status }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="catatan_admin">Admin Notes</label>
+                <textarea id="catatan_admin" name="catatan_admin" rows="5" class="form-control">{{ claim.Catatan_Admin | default('') }}</textarea>
+            </div>
+
+            <button type="submit" class="submit-button">Update Claim</button>
+        </form>
+        <a href="{{ url_for('adminDeleteClaim', claim_id=claim.ID_Klaim) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this claim permanently?')">Delete Claim</a>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>

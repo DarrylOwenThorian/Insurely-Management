@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/Sidebar.css  ">
+</head>
+<body>
+{% extends 'base_user.html' %}
+
+{% block title %}My Policies{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/dashboard_styles.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h2>Daftar polis</h2>
+
+    {% if user_policies %}
+    <div class="table-responsive">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID Polis</th>
+                    <th>Status</th>
+                    <th>Nama Produk</th>
+                    <th>Pemilik Polis</th>
+                    <th>Hubungan</th>
+                    <th>Tanggal Pendaftaran</th>
+                    <th>Documents</th>
+                    <th>Details</th>
+                    <th>Pembayaran</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for policy in user_policies %}
+                <tr>
+                    <td>{{ policy.ID_Data_Polis }}</td>
+                    <td><span class="status-badge status-{{ policy.Status_Polis | lower | replace(' ', '-') }}">{{ policy.Status_Polis }}</span></td>
+                    <td>{{ policy.Nama_Produk }}</td>
+                    <td>{{ policy.Nama_Data_Polis }}</td>
+                    <td>{{ policy.Hubungan_Data_Polis }}</td>
+                    <td>{{ policy.Tanggal_Polis_Dibuat | default('N/A') }}</td>
+                    <td>
+                        {% if policy.KTP_File %}
+                            <a href="{{ url_for('uploaded_file', filename='policy_docs/' + policy.KTP_File) }}" target="_blank">KTP</a><br>
+                        {% endif %}
+                        {% if policy.NPWP_File %}
+                            <a href="{{ url_for('uploaded_file', filename='policy_docs/' + policy.NPWP_File) }}" target="_blank">NPWP</a><br>
+                        {% endif %}
+                        {% if policy.KK_File %}
+                            <a href="{{ url_for('uploaded_file', filename='policy_docs/' + policy.KK_File) }}" target="_blank">KK</a>
+                        {% endif %}
+                        {% if not policy.KTP_File and not policy.NPWP_File and not policy.KK_File %}
+                            N/A
+                        {% endif %}
+                    </td>
+                    {# MODIFIED LINK: Point to the new policy_detail route #}
+                    <td><a href="{{ url_for('policy_detail', policy_id=policy.ID_Data_Polis) }}" class="card-link">View &rarr;</a></td>
+                    <td>
+                        {# NEW: Payment Button - only clickable if status is Approved #}
+                        {% if policy.Status_Polis == 'Approved' %}
+                            <a href="{{ url_for('initiate_payment', policy_id=policy.ID_Data_Polis) }}" class="payment-button">Bayar</a>
+                        {% else %}
+                            <button class="payment-button" disabled>Bayar</button>
+                        {% endif %}
+                    </td>
+
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="8">No policies found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <div class="empty-state-message">
+            <h2>Tidak ada Polis yang terdaftar</h2>
+            <a href="{{ url_for('user_products') }}" class="submit-button" style="display: inline-block; margin-top: 20px;">
+                Daftar &rarr;
+            </a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+</body>
+</html>

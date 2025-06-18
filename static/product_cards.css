@@ -1,0 +1,88 @@
+/* static/css/product_cards.css */
+
+.product-page-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.product-card {
+    background-color: #fff; /* White background for card */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%;
+    max-width: 350px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    min-height: 180px;
+}
+
+.product-card-content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card h3 {
+    font-size: 1.5em;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--text-color); /* Using the text color variable */
+    min-height: 50px;
+}
+
+.product-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+.product-features li {
+    margin-bottom: 8px;
+    color: var(--text-color); /* Using the text color variable */
+    display: flex;
+    align-items: flex-start;
+}
+
+.product-features li::before {
+    content: '✓';
+    color: #4CAF50; /* Keeping a specific green for the checkmark */
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.buy-button {
+    display: block;
+    width: 100%;
+    padding: 12px 0;
+    background-color: var(--primary-color); /* Using the primary color variable */
+    color: var(--hover-text-color); /* Using the hover text color variable (white) */
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.1em;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.buy-button:hover {
+    background-color: var(--sidebar-color-dark); /* Using the dark sidebar color for hover */
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+}

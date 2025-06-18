@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/Home.css">
+</head>
+<body>
+    {% extends "base_admin.html" %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>Admin Dashboard</h1>
+    </div>
+
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <h2>Total Users</h2>
+            <p class="metric-value">{{ total_users }}</p>
+            <a href="{{ url_for('User') }}" class="card-link">View Details &rarr;</a>
+        </div>
+        <div class="metric-card">
+            <h2>Total Products</h2>
+            <p class="metric-value">{{ total_products }}</p>
+            <a href="{{ url_for('Product') }}" class="card-link">View Details &rarr;</a>
+        </div>
+    </div>
+
+    <div class="charts-section">
+        <div class="chart-card">
+            <h2>Recent Users</h2>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in recent_users %}
+                        <tr>
+                            <td>{{ user.ID_Nasabah }}</td>
+                            <td>{{ user.Nama_Nasabah }}</td>
+                            <td>{{ user.Email_Nasabah }}</td>
+                            <td>{{ user.No_Telepon_Nasabah }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>

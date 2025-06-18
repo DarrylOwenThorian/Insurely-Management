@@ -1,0 +1,48 @@
+{% extends 'base_bare.html' %} 
+
+{% block title %}User Registration{% endblock %}
+
+{% block head %}
+    {# No extra CSS needed here, as dashboard_styles.css is in base_bare.html #}
+{% endblock %}
+
+{% block content %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    
+<div class="form-container">
+    <div class="form-card">
+        <h2>User Registration</h2>
+        {# No flash messages here, as per your previous request #}
+
+        <form method="POST" action="{{ url_for('user_register') }}">
+            <div class="form-group">
+                <label for="nama_nasabah">Full Name</label>
+                <input type="text" id="nama_nasabah" name="nama_nasabah" 
+                       value="{{ form_data.nama_nasabah | default('') }}" required>
+            </div>
+            <div class="form-group">
+                <label for="email_nasabah">Email</label>
+                <input type="email" id="email_nasabah" name="email_nasabah" 
+                       value="{{ form_data.email_nasabah | default('') }}" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="submit-button">Register</button>
+        </form>
+        <div class="login-options">
+            <p>Already have an account? <a href="{{ url_for('user_login') }}" class="card-link">Login here</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

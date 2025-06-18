@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/UserManagement.css') }}">
+</head>
+<body>
+{% extends 'base_admin.html' %} 
+
+{% block title %}Admin - Add Policy{% endblock %}
+
+{% block content %}
+<div class="admin-dashboard-container">
+    <h2>Add New Policy</h2>
+    
+    {# No flash messages here, as per previous request #}
+
+    <form method="POST" action="{{ url_for('addPolicy') }}">
+        {# REMOVED: ID_Data_Polis input field as it's now auto-generated in Flask #}
+        {# <div class="form-group">
+            <label for="ID_Data_Polis">Policy ID</label>
+            <input type="text" id="ID_Data_Polis" name="ID_Data_Polis" 
+                   value="{{ form_data.ID_Data_Polis | default('') }}" required>
+        </div> #}
+
+        <div class="form-group">
+            <label for="ID_Polis">Product ID (e.g., P001)</label>
+            <input type="text" id="ID_Polis" name="ID_Polis" 
+                   value="{{ form_data.ID_Polis | default('') }}" required>
+        </div>
+        <div class="form-group">
+            <label for="ID_Nasabah">Customer ID (e.g., N001)</label>
+            <input type="text" id="ID_Nasabah" name="ID_Nasabah" 
+                   value="{{ form_data.ID_Nasabah | default('') }}" required>
+        </div>
+
+        <hr>
+        <h3>Policy Holder Details</h3>
+        <p class="text-muted">Information about the person whose life/property is insured.</p>
+
+        <div class="form-group">
+            <label for="Nama_Data_Polis">Policy Holder's Full Name</label>
+            <input type="text" id="Nama_Data_Polis" name="Nama_Data_Polis" 
+                   value="{{ form_data.Nama_Data_Polis | default('') }}" required>
+        </div>
+        <div class="form-group">
+            <label for="Hubungan_Data_Polis">Relationship to Customer</label>
+            <input type="text" id="Hubungan_Data_Polis" name="Hubungan_Data_Polis" 
+                   value="{{ form_data.Hubungan_Data_Polis | default('') }}" required>
+        </div>
+        <div class="form-group">
+            <label for="Alamat_Data_Polis">Address</label>
+            <textarea id="Alamat_Data_Polis" name="Alamat_Data_Polis" rows="3" required>{{ form_data.Alamat_Data_Polis | default('') }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="Nomor_Telepon_Polis">Phone Number</label>
+            <input type="tel" id="Nomor_Telepon_Polis" name="Nomor_Telepon_Polis" 
+                   value="{{ form_data.Nomor_Telepon_Polis | default('') }}" required>
+        </div>
+        
+        {# Policy Holder's personal details #}
+        <div class="form-group">
+            <label for="NIK_Pemegang_Polis">NIK (Nomor Induk Kependudukan) of Policy Holder</label>
+            <input type="text" id="NIK_Pemegang_Polis" name="NIK_Pemegang_Polis" 
+                   value="{{ form_data.NIK_Pemegang_Polis | default('') }}" required>
+        </div>
+        <div class="form-group">
+            <label for="Jenis_Kelamin_Pemegang_Polis">Gender of Policy Holder</label>
+            <select id="Jenis_Kelamin_Pemegang_Polis" name="Jenis_Kelamin_Pemegang_Polis" required>
+                <option value="">Select Gender</option>
+                <option value="L" {% if form_data.Jenis_Kelamin_Pemegang_Polis == 'L' %}selected{% endif %}>Laki-laki</option>
+                <option value="P" {% if form_data.Jenis_Kelamin_Pemegang_Polis == 'P' %}selected{% endif %}>Perempuan</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Tempat_Lahir_Pemegang_Polis">Birth Place of Policy Holder</label>
+            <input type="text" id="Tempat_Lahir_Pemegang_Polis" name="Tempat_Lahir_Pemegang_Polis" 
+                   value="{{ form_data.Tempat_Lahir_Pemegang_Polis | default('') }}" required>
+        </div>
+        <div class="form-group">
+            <label for="Tanggal_Lahir_Pemegang_Polis">Birth Date of Policy Holder</label>
+            <input type="date" id="Tanggal_Lahir_Pemegang_Polis" name="Tanggal_Lahir_Pemegang_Polis" 
+                   value="{{ form_data.Tanggal_Lahir_Pemegang_Polis | default('') }}" required>
+        </div>
+
+
+        <button type="submit" class="submit-button">Add Policy</button>
+    </form>
+    <a href="{{ url_for('Policy') }}" class="back-button">← Back to Policy List</a>
+</div>
+{% endblock %}
+</html>

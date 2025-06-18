@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Welcome{% endblock %}</title>
+    {# Link to your global CSS for basic font, body background, and root variables #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/global.css') }}">
+    {# Link dashboard_styles.css for generic form-card/form-container styling if it's suitable #}
+    {# If dashboard_styles.css has too many dashboard-specifics, consider a dedicated 'forms.css' #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/dashboard_styles.css') }}"> 
+
+    {# Allow individual pages to add specific styles/scripts to head #}
+    {% block head %}{% endblock %}
+</head>
+<body>
+    {# The main content block will be filled by child templates #}
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    {# No footer for these bare pages #}
+    {# No common scripts for these bare pages #}
+</body>
+</html>

@@ -1,0 +1,78 @@
+{% extends 'base_user.html' %}
+
+{% block title %}Submit New Claim{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/dashboard_styles.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <h2>Ajukan Klaim</h2>
+        
+        {# Display message if no approved policies are found #}
+        {% if no_active_policies_found %}
+            <div class="alert alert-info" style="color: #0c5460; background-color: #d1ecf1; border-color: #bee5eb; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                Kamu tidak memiliki polis yang Aktif, tolong pastikan ada polis yang aktif di <a href="{{ url_for('my_policies') }}">Polis Saya</a>
+            </div>
+        {% endif %}
+
+        <form method="POST" action="{{ url_for('submit_claim') }}" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="id_data_polis">Polis yang mau diclaim</label>
+                <select id="id_data_polis" name="id_data_polis" required {% if no_active_policies_found %}disabled{% endif %}>
+                    <option value="">Pilih Polis</option>
+                    {% if user_policies %}
+                        {% for policy in user_policies %}
+                            <option value="{{ policy.ID_Data_Polis }}" 
+                                    {% if form_data.id_data_polis == policy.ID_Data_Polis %}selected{% endif %}>
+                                {{ policy.Nama_Produk }} (Policy ID: {{ policy.ID_Data_Polis }}) - Status: {{ policy.Status_Polis }}
+                            </option>
+                        {% endfor %}
+                    {% else %}
+                        <option value="" disabled>No approved policies available</option>
+                    {% endif %}
+                </select>
+                {% if no_active_policies_found %}
+                    <small class="form-text text-muted">Kamu harus memiliki polis yang Aktif</small>
+                {% endif %}
+            </div>
+
+            {# Disable other fields if no approved policies, for better UX #}
+            <div class="form-group">
+                <label for="jenis_klaim">Jenis Klaim</label>
+                <input type="text" id="jenis_klaim" name="jenis_klaim" value="{{ form_data.jenis_klaim | default('') }}" placeholder="e.g., Medical, Flight Delay, Luggage Loss" required {% if no_active_policies_found %}disabled{% endif %}>
+            </div>
+
+            <div class="form-group">
+                <label for="tanggal_kejadian">Tanggal Kejadian</label>
+                <input type="date" id="tanggal_kejadian" name="tanggal_kejadian" value="{{ form_data.tanggal_kejadian | default('') }}" required {% if no_active_policies_found %}disabled{% endif %}>
+            </div>
+
+            <div class="form-group">
+                <label for="lokasi_kejadian">Lokasi Kejadian</label>
+                <input type="text" id="lokasi_kejadian" name="lokasi_kejadian" value="{{ form_data.lokasi_kejadian | default('') }}" required {% if no_active_policies_found %}disabled{% endif %}>
+            </div>
+
+            <div class="form-group">
+                <label for="deskripsi_kejadian">Deskripsi</label>
+                <textarea id="deskripsi_kejadian" name="deskripsi_kejadian" rows="4" {% if no_active_policies_found %}disabled{% endif %}>{{ form_data.deskripsi_kejadian | default('') }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="jumlah_klaim">Ajukan Jumblah Klaim</label>
+                <input type="number" id="jumlah_klaim" name="jumlah_klaim" value="{{ form_data.jumlah_klaim | default('') }}" step="0.01" placeholder="e.g., 500000 (Rupiah)" {% if no_active_policies_found %}disabled{% endif %}>
+            </div>
+            
+            <div class="form-group">
+                <label for="dokumen_pendukung">Bukti Dokumen (Opsional)</label>
+                <input type="file" id="dokumen_pendukung" name="dokumen_pendukung" accept=".png,.jpg,.jpeg,.pdf,.doc,.docx" {% if no_active_policies_found %}disabled{% endif %}>
+                <small class="form-text text-muted">Allowed types: PNG, JPG, JPEG, PDF, DOC, DOCX</small>
+            </div>
+
+            <button type="submit" class="submit-button" {% if no_active_policies_found %}disabled{% endif %}>Submit Claim</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

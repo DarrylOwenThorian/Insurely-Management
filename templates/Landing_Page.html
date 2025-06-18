@@ -1,0 +1,46 @@
+{% extends 'base_bare.html' %} 
+
+{% block title %}Welcome to Insurance App{% endblock %}
+
+{% block head %}
+    <style>
+        .landing-container {
+            text-align: center;
+            padding: 50px;
+            max-width: 600px;
+            margin: 100px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .landing-container h1 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+        }
+        .landing-options a {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease;
+        }
+        .landing-options a:hover {
+            background-color: var(--sidebar-color-dark);
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="landing-container">
+    <h1>Welcome to the Insurance Application</h1>
+    <p>Please select your role to proceed:</p>
+    <div class="landing-options">
+        <a href="{{ url_for('user_login') }}">Login as User</a>
+        <a href="{{ url_for('admin_login') }}">Login as Admin</a>
+    </div>
+</div>
+{% endblock %}

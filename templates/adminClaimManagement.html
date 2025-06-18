@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {# This link tag for UserManagement.css should probably be in base_admin.html #}
+    {# If UserManagement.css contains styles specifically for this table, you can keep it here. #}
+    {# But generally, page-specific CSS goes inside {% block head %}. #}
+    <link rel="stylesheet" href="../static/UserManagement.css" /> 
+</head>
+<body>
+    {% extends 'base_admin.html' %} 
+
+    {% block title %}Admin - Claim Management{% endblock %}
+
+    {% block content %}
+    <div class="admin-dashboard-container">
+        <h2>Claim Management</h2>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Claim ID</th>
+                        <th>Status</th>
+                        <th>Type</th>
+                        <th>Incident Date</th>
+                        <th>Amount</th>
+                        <th>Customer Name</th>
+                        <th>Policy Product</th>
+                        <th>Policy Holder</th>
+                        <th>Submitted On</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for claim in claims %}
+                    <tr>
+                        <td>{{ claim.ID_Klaim }}</td>
+                        <td><span class="status-badge status-{{ claim.Status_Klaim | lower | replace(' ', '-') }}">{{ claim.Status_Klaim }}</span></td>
+                        <td>{{ claim.Jenis_Klaim }}</td>
+                        <td>{{ claim.Tanggal_Kejadian | default('N/A') }}</td>
+                        <td>{% if claim.Jumlah_Klaim %}Rp{{ "{:,.0f}".format(claim.Jumlah_Klaim | float) }}{% else %}N/A{% endif %}</td>
+                        <td><a href="{{ url_for('adminUserPolicies', nasabah_id=claim.ID_Nasabah) }}">{{ claim.Nama_Nasabah }}</a></td>
+                        <td>{{ claim.Nama_Produk }}</td>
+                        <td>{{ claim.Nama_Data_Polis }} (ID: <a href="{{ url_for('Policy') }}">{{ claim.ID_Data_Polis }}</a>)</td> {# THIS LINE IS FIXED! #}
+                        <td>{{ claim.Tanggal_Pengajuan | default('N/A') }}</td>
+                        <td>
+                            <a href="{{ url_for('adminClaimDetail', claim_id=claim.ID_Klaim) }}" class="btn btn-sm btn-info">View/Edit</a>
+                            <a href="{{ url_for('adminDeleteClaim', claim_id=claim.ID_Klaim) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this claim?')">Delete</a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="10">No claims found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

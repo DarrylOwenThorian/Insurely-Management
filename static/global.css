@@ -1,0 +1,102 @@
+/* static/css/global.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    /* Colors */
+    --body-color: #e4e9f7;
+    --sidebar-color: #E0B0FF; /* Consider renaming to --primary-light-purple */
+    --sidebar-color-dark: #CC9EFF; /* Consider renaming to --primary-dark-purple */
+    --text-color: #707070;
+    --primary-color: #A380CC; /* Main purple color */
+    --primary-color-light: #F6F5FF; /* Very light purple/off-white */
+    --hover-text-color: #F6F5FF; /* White text on hover */
+    --toggle-color: #000; /* Black for toggles/icons */
+    --link-color: #555; /* Default link color */
+    --link-hover-color: #007bff; /* Blue for link hover */
+
+
+    /* Transitions */
+    --tran-02: all 0.2s ease;
+    --tran-03: all 0.3s ease;
+    --tran-04: all 0.4s ease;
+    --tran-05: all 0.5s ease;
+}
+
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%; /* Ensures body and html take full viewport height */
+    overflow-x: hidden; /* Prevent horizontal scrollbar from accidental overflows */
+}
+
+body {
+    background: var(--body-color);
+    display: flex; /* Makes body a flex container to push footer down */
+    flex-direction: column; /* Stacks content vertically */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-color);
+}
+
+p {
+    color: var(--text-color);
+}
+
+/* Global Flash Message Styling */
+.flash-messages {
+    max-width: 1200px; /* Adjust as needed */
+    margin: 20px auto 0 auto; /* Adjust margin to fit below header */
+    padding: 0 20px;
+    z-index: 999; /* Ensure it's above other content if necessary */
+    position: relative; /* To stack correctly */
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+
+.alert-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+
+/* Global Footer Styling */
+.main-footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f9fa; /* Light background */
+    border-top: 1px solid #eee;
+    color: #6c757d;
+    font-size: 0.9em;
+    margin-top: auto; /* Pushes footer to the bottom */
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/UserManagement.css') }}">
+</head>
+<body>
+{% extends 'base_admin.html' %}
+
+{% block title %}Admin - Policy Review: {{ policy.ID_Data_Polis }}{% endblock %}
+
+{% block content %}
+<div class="admin-dashboard-container">
+    <h2>Policy Review (ID: {{ policy.ID_Data_Polis }})</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <p><a href="{{ url_for('Policy') }}" class="btn btn-info mb-3">← Back to All Policies</a></p>
+
+    <div class="form-card">
+        <h3>Policy Details</h3>
+        <form method="POST" action="{{ url_for('adminPolicyDetail', policy_id=policy.ID_Data_Polis) }}">
+            <div class="detail-item"><strong>ID Polis:</strong> {{ policy.ID_Data_Polis }}</div>
+            <div class="detail-item"><strong>Produk:</strong> {{ policy.Nama_Produk }}</div>
+            <div class="detail-item"><strong>Tanggal Ajuan:</strong> {{ policy.Tanggal_Polis_Dibuat | default('N/A') }}</div>
+            <hr>
+            <h3>Informasi Pendaftar</h3>
+            <div class="detail-item"><strong>Nama Customer:</strong> <a href="{{ url_for('adminUserPolicies', nasabah_id=policy.ID_Nasabah) }}">{{ policy.Nama_Nasabah }}</a></div>
+            <div class="detail-item"><strong>Email Customer:</strong> {{ policy.Email_Nasabah }}</div>
+            <div class="detail-item"><strong>Nama Pemegang Polis:</strong> {{ policy.Nama_Data_Polis }}</div>
+            <div class="detail-item"><strong>Hubungan:</strong> {{ policy.Hubungan_Data_Polis }}</div>
+            <div class="detail-item"><strong>Alamat:</strong> {{ policy.Alamat_Data_Polis }}</div>
+            <div class="detail-item"><strong>Nomor Telepon:</strong> {{ policy.Nomor_Telepon_Polis }}</div>
+
+            <hr>
+            <h3>Documents</h3>
+            <div class="detail-item">
+                {% if policy.KTP_File %}
+                    <strong>KTP:</strong> <a href="{{ url_for('uploaded_file', filename='policy_docs/' + policy.KTP_File) }}" target="_blank">View KTP</a><br>
+                {% else %}
+                    <strong>KTP:</strong> N/A<br>
+                {% endif %}
+                {% if policy.NPWP_File %}
+                    <strong>NPWP:</strong> <a href="{{ url_for('uploaded_file', filename='policy_docs/' + policy.NPWP_File) }}" target="_blank">View NPWP</a><br>
+                {% else %}
+                    <strong>NPWP:</strong> N/A<br>
+                {% endif %}
+                {% if policy.KK_File %}
+                    <strong>Kartu Keluarga (KK):</strong> <a href="{{ url_for('uploaded_file', filename='policy_docs/' + policy.KK_File) }}" target="_blank">View KK</a>
+                {% else %}
+                    <strong>Kartu Keluarga (KK):</strong> N/A
+                {% endif %}
+            </div>
+
+            <hr>
+            <h3>Admin Actions</h3>
+            <div class="form-group">
+                <label for="status_polis">Policy Status</label>
+                <select id="status_polis" name="status_polis" class="form-control" required>
+                    {% for status in policy_statuses %}
+                        <option value="{{ status }}" {% if policy.Status_Polis == status %}selected{% endif %}>{{ status }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="admin_notes_policy">Admin Notes (for Policy)</label>
+                <textarea id="admin_notes_policy" name="admin_notes_policy" rows="5" class="form-control">{{ policy.Admin_Notes | default('') }}</textarea>
+            </div>
+
+            <button type="submit" class="submit-button">Update Policy Status</button>
+        </form>
+        {# You might add a delete policy button here if desired #}
+        <a href="{{ url_for('deletePolicy', id=policy.ID_Data_Polis) }}" class="btn btn-danger mt-3" onclick="return confirm('Are you sure you want to delete this policy?')">Delete Policy</a>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>

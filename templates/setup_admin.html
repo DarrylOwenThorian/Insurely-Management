@@ -1,0 +1,44 @@
+{% extends 'base_bare.html' %} 
+
+{% block title %}Admin Setup{% endblock %}
+
+{% block head %}
+    {# No extra CSS needed here, as dashboard_styles.css is in base_bare.html #}
+{% endblock %}
+
+{% block content %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    
+<div class="form-container">
+    <div class="form-card">
+        <h2>Setup First Admin User</h2>
+        <p>This page is for initial setup. Create your administrator account.</p>
+        {# No flash messages here, as per your previous request #}
+
+        <form method="POST" action="{{ url_for('setup_admin') }}">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email (Optional)</label>
+                <input type="email" id="email" name="email">
+            </div>
+            <button type="submit" class="submit-button">Create Admin Account</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

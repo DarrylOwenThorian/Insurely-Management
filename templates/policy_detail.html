@@ -1,0 +1,63 @@
+{% extends 'base_user.html' %}
+
+{% block title %}Policy Details: {{ policy.ID_Data_Polis }}{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/dashboard_styles.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h2>Policy Details (ID: {{ policy.ID_Data_Polis }})</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <p><a href="{{ url_for('my_policies') }}" class="btn btn-info mb-3">← Back to My Policies</a></p>
+
+    <div class="product-detail-card"> {# Reusing form-card or product-detail-card styling #}
+        <h3>Informasi Polis</h3>
+        <div class="detail-item"><strong>ID Polis:</strong> {{ policy.ID_Data_Polis }}</div>
+        <div class="detail-item"><strong>Status:</strong> <span class="status-badge status-{{ policy.Status_Polis | lower | replace(' ', '-') }}">{{ policy.Status_Polis }}</span></div>
+        <div class="detail-item"><strong>Produk:</strong> {{ policy.Nama_Produk }}</div>
+        <div class="detail-item"><strong>Masa Berlaku:</strong> {{ policy.Masa_Berlaku | default('N/A') }}</div>
+        <div class="detail-item"><strong>Tanggal Mendaftar:</strong> {{ policy.Tanggal_Polis_Dibuat | default('N/A') }}</div>
+        <hr>
+        <h3>Informasi User</h3>
+        <div class="detail-item"><strong>Nama Pemegang Polis:</strong> {{ policy.Nama_Data_Polis }}</div>
+        <div class="detail-item"><strong>Hubungan:</strong> {{ policy.Hubungan_Data_Polis }}</div>
+        <div class="detail-item"><strong>Alamat:</strong> {{ policy.Alamat_Data_Polis }}</div>
+        <div class="detail-item"><strong>Nomor Teleponr:</strong> {{ policy.Nomor_Telepon_Polis }}</div>
+
+        <hr>
+        <h3>Documents</h3>
+        <div class="detail-item">
+            {% if policy.KTP_File %}
+                <strong>KTP:</strong> <a href="{{ url_for('uploaded_file', filename='policy_docs/' + policy.KTP_File) }}" target="_blank">View KTP</a><br>
+            {% else %}
+                <strong>KTP:</strong> N/A<br>
+            {% endif %}
+            {% if policy.NPWP_File %}
+                <strong>NPWP:</strong> <a href="{{ url_for('uploaded_file', filename='policy_docs/' + policy.NPWP_File) }}" target="_blank">View NPWP</a><br>
+            {% else %}
+                <strong>NPWP:</strong> N/A<br>
+            {% endif %}
+            {% if policy.KK_File %}
+                <strong>Kartu Keluarga (KK):</strong> <a href="{{ url_for('uploaded_file', filename='policy_docs/' + policy.KK_File) }}" target="_blank">View KK</a>
+            {% else %}
+                <strong>Kartu Keluarga (KK):</strong> N/A
+            {% endif %}
+        </div>
+        
+        <hr>
+        <a href="{{ url_for('my_policies') }}" class="back-button">← Back to My Policies</a>
+    </div>
+</div>
+{% endblock %}

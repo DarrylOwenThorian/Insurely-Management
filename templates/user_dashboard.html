@@ -1,0 +1,47 @@
+{% extends 'base_user.html' %}
+
+{% block title %}Welcome, {{ username }}!{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/userHome.css') }}">
+{% endblock %}
+
+{% block content %}
+
+  <section class="banner">
+    <h1>Insurely</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+  </section>
+  
+
+    <div class="banner-grid">
+        <div class="banner-card">
+            <i class='bx bx-check-shield icon-placeholder'></i>
+            <h3>Product Kami</h3>
+            <p>test</p>
+            <a href="{{ url_for('user_products') }}" class="action-link">Produk Kami</a>
+        </div>
+
+        <div class="banner-card">
+            <i class='bx bx-file-find icon-placeholder'></i>
+            <h3>Ajukan Klaim</h3>
+            <p></p>
+            <a href="{{ url_for('submit_claim') }}" class="action-link">Ajukan Klaim</a>
+        </div>
+
+        <div class="banner-card">
+            <i class='bx bx-user-check icon-placeholder'></i>
+            <h3>Polis Anda</h3>
+            <p></p>
+            <a href="{{ url_for('my_policies') }}" class="action-link">Polis Saya</a>
+        </div>
+
+        <div class="banner-card">
+            <i class='bx bx-headphone icon-placeholder'></i>
+            <h3>Kontak Kami</h3>
+            <p></p>
+            <a href="{{ url_for('contact_us') }}" class="action-link">Contact Us</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

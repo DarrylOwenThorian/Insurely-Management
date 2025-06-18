@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/UserManagement.css') }}">
+
+</head>
+<body>
+{% extends 'base_admin.html' %}
+
+{% block content %}
+<div class="user-management-container"> {# Use a specific class for this page's main content #}
+    <div class="title-bar">
+        <h1>Product Management</h1>
+        <a href="/adminProductManagement/add" class="add-data-button">
+            <i class='bx bx-plus-circle'></i> Tambah Data {# Added icon for better UX #}
+        </a>
+    </div>
+
+    <div class="table-card"> {# Wrap your table in a card-like div for consistent styling #}
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID_Produk</th>
+                        <th>Nama_Produk</th>
+                        <th>Masa_Berlaku</th>
+                        <th>Jenis_Asuransi</th>
+                        <th>Premi_Bulanan</th>
+                        <th class="action-header">Actions</th>
+                </thead>
+                <tbody>
+                    {% for row in product_asuransi %}   
+                    <tr>
+                        <td>{{ row['ID_Produk'] }}</td>
+                        <td>{{ row['Nama_Produk'] }}</td>
+                        <td>{{ row['Masa_Berlaku'] }}</td>
+                        <td>{{ row['Nama_Jenis_Asuransi'] }}</td>
+                        <td>{{ row['Premi_Bulanan'] }}</td>
+                        <td class="action-buttons-cell">
+                            <a href="/adminProductManagement/update/{{row['ID_Produk']}}" class="action-button update">Update</a>
+                            <a href="/adminProductManagement/delete/{{ row['ID_Produk'] }}" class="action-button delete" onclick="return confirm('Are you sure you want to delete this nasabah?');">Delete</a>
+                        </td>
+                        </form>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,15 @@
+{% extends 'base_user.html' %} 
+
+{% block title %}Our Products{% endblock %}
+
+{% block head %}
+    {# Only link CSS specific to product cards, not the global nav bar #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/product_cards2.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="product-page-container">
+    <h2 style="text-align: center; margin-bottom: 30px;">Website</h2>
+    <p style="color: white;text-align: center; margin-bottom: 30px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+</div>
+{% endblock %}  

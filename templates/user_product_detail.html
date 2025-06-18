@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/dashboard_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/product_cards2.css') }}">
+</head>
+<body>
+    {% extends 'base_user.html' %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>{{ product.Nama_Produk }}</h1>
+    </div>
+
+    <div class="product-detail-card"> {# New class for detail card #}
+        <div class="detail-item">
+            <strong>Product ID:</strong> <span>{{ product.ID_Produk }}</span>
+        </div>
+        <div class="detail-item">
+            <strong>Insurance Type:</strong> <span>{{ product.Nama_Jenis_Asuransi }}</span>
+        </div>
+        <div class="detail-item">
+            <strong>Masa Berlaku:</strong> <span>{{ product.Masa_Berlaku }}</span>
+        </div>
+        <div class="detail-item">
+            <strong>Premi Bulanan:</strong> <span>{{ product.Premi_Bulanan }}</span>
+        </div>
+        <div class="detail-item">
+            <strong>Description:</strong> <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</span>
+        </div>
+
+        <div class="button-group" style="margin-top: 30px; text-align: center;">
+            <a href="{{ url_for('apply_for_policy', product_id=product.ID_Produk) }}" class="submit-button">Daftar</a>
+            <a href="{{ url_for('user_products') }}" class="back-button">Kembali</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+    
+</body>
+</html>

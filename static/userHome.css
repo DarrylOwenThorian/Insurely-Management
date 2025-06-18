@@ -1,0 +1,111 @@
+:root {
+    /* Colors */
+    --body-color: #e4e9f7;
+    --sidebar-color: #E0B0FF;
+    --sidebar-color-dark: #CC9EFF;
+    --text-color: #707070;
+    --primary-color: #A380CC;
+    --primary-color-light: #F6F5FF;
+    --hover-text-color: #F6F5FF;
+    --toggle-color: #000;
+
+    /* Transitions */
+    --tran-02: all 0.2s ease;
+    --tran-03: all 0.3s ease;
+    --tran-04: all 0.4s ease;
+    --tran-05: all 0.5s ease;
+}
+
+
+.banner {
+    position: relative;
+    height: 100vh;
+    background: linear-gradient(to right, rgba(96, 28, 156, 0.95), rgba(96, 28, 156, 0.4)),
+                url('banner.jpg') no-repeat center center;
+    background-size: cover;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 5vw;
+    margin-bottom: 5rem;
+}
+
+.banner h1 {
+    font-size: 3em;
+    font-weight: bold;
+    margin-bottom: 0.3em;
+    color: white;
+}
+
+.banner p {
+    color: var(--hover-text-color);
+    font-size: 1.3em;
+    max-width: 600px;
+    margin: 0.3em 0;
+    line-height: 1.6;
+}
+
+
+
+/* Styles for the Grid of Feature Banners/Cards */
+.banner-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid columns */
+    gap: 25px; /* Space between cards */
+    margin-bottom: 40px;
+}
+
+.banner-card {
+    background-color: #fff; /* White background for individual cards */
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Very subtle shadow */
+    text-align: center;
+    transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out; /* Small transition for hover */
+    border-top: none; /* No top border */
+    border: 1px solid #eee; /* Light grey border for definition */
+}
+
+.banner-card:hover {
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* Slightly more prominent shadow on hover */
+}
+
+.banner-card .icon-placeholder {
+    font-size: 3em;
+    color: var(--sidebar-color-dark); /* Uses a purple color variable from global.css */
+    margin-bottom: 15px;
+}
+.banner-card h3 {
+    color: var(--text-color); /* Uses text color variable from global.css */
+    font-size: 1.4em;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+.banner-card p {
+    color: var(--text-color);
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+.banner-card .action-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 8px 15px;
+    background-color: var(--primary-color); /* Uses primary color variable from global.css */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+.banner-card .action-link:hover {
+    background-color: var(--sidebar-color-dark); /* Uses darker color for hover */
+}
+
+/* Responsive adjustments for banners */
+@media (max-width: 768px) {
+    .banner-grid {
+        grid-template-columns: 1fr; /* Stack banners vertically on small screens */
+    }
+}

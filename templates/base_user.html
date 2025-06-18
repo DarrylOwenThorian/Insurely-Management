@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}User Account{% endblock %}</title>
+    
+    {# Link global styles #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/global.css') }}">
+    {# Link user-specific navbar styles #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/user_navbar.css') }}">
+    {# Font Awesome / Boxicons for icons (if you still need specific icons for a dashboard) #}
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    {# This block allows child templates to add specific CSS/JS to the head #}
+    {% block head %}{% endblock %} 
+</head>
+<body>
+    {# Top Navigation Bar #}
+<header class="main-header">
+    <div class="logo">
+        <img src="{{ url_for('static', filename='weblogo.png') }}" alt="User Logo">
+        <span>Insurely</span>
+    </div>
+    <nav class="nav-links">
+        <ul>
+            <li><a href="{{ url_for('user_dashboard') }}">Home</a></li>
+            <li><a href="{{ url_for('my_policies') }}">Polis Saya</a></li>
+            <li class="nav-item has-dropdown">
+                <a href="#">Produk <span style="font-size: 0.8em;">&#9662;</span></a>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('user_products') }}">Semua Produk</a>
+                </div>
+            </li>
+            <li class="nav-item has-dropdown">
+                <a href="#">Klaim <span style="font-size: 0.8em;">&#9662;</span></a>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('submit_claim') }}">Ajukan Klaim</a> {# Link to the claim submission form #}
+                    <a href="{{ url_for('my_claims') }}">Cek Status Klaim</a> {# Link to the list of user's claims #}
+                </div>
+            </li>
+            <li><a href="{{ url_for('about_us') }}">Tentang Kami</a></li>
+            <li><a href="{{ url_for('contact_us') }}">Hubungi Kami</a></li>
+            
+            <li class="logout-link"><a href="{{ url_for('logout') }}"><i class='bx bx-log-out icon'></i> Logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+    {# Main content area that child templates will fill #}
+    <main class="main-content-area">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    {# Global Footer #}
+    <footer class="main-footer">
+    </footer>
+
+    {# Any global JS scripts #}
+    {# <script src="{{ url_for('static', filename='js/main.js') }}"></script> #}
+</body>
+</html>

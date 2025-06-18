@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/Sidebar.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/dashboard_styles.css') }}">
+</head>
+<body>
+{% extends 'base_user.html' %}
+
+{% block title %}Apply for {{ product.Nama_Produk }}{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_styles.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <h2>Daftar Untuk {{ product.Nama_Produk }}</h2>
+        {# IMPORTANT: Add enctype="multipart/form-data" #}
+        <form method="POST" action="{{ url_for('apply_for_policy', product_id=product.ID_Produk) }}" enctype="multipart/form-data">
+            
+            <h3>Details</h3>
+            <div class="form-group">
+                <label for="nama_data_polis">Nama Lengkap</label>
+                <input type="text" id="nama_data_polis" name="nama_data_polis" 
+                       value="{{ form_data.nama_data_polis | default('') }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="hubungan_data_polis">Hubungan dengan Pemegang Polis</label>
+                <select id="hubungan_data_polis" name="hubungan_data_polis" required>
+                    <option value="">Hubungan</option>
+                    <option value="Pemilik" {% if form_data.hubungan_data_polis == 'Pemilik' %}selected{% endif %}>Pemilik</option>
+                    <option value="Istri" {% if form_data.hubungan_data_polis == 'Istri' %}selected{% endif %}>Istri</option>
+                    <option value="Anak" {% if form_data.hubungan_data_polis == 'Anak' %}selected{% endif %}>Anak</option>
+                    <option value="Orang_Tua" {% if form_data.hubungan_data_polis == 'Orang_Tua' %}selected{% endif %}>Orang_Tua</option>
+                    <option value="Lainnya" {% if form_data.hubungan_data_polis == 'Lainnya' %}selected{% endif %}>Lainnya</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="alamat_data_polis">Alamat</label>
+                <textarea id="alamat_data_polis" name="alamat_data_polis" rows="3" required>{{ form_data.alamat_data_polis | default('') }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="nomor_telepon_polis">Nomor Telepon</label>
+                <input type="tel" id="nomor_telepon_polis" name="nomor_telepon_polis" 
+                       value="{{ form_data.nomor_telepon_polis | default('') }}" required>
+            </div>
+
+            <hr>
+            <h3>Dokumen Wajib</h3>
+            <p class="form-text text-muted">Upload Foto yang jelas. Jenis File: PNG, JPG, JPEG, PDF (Max {{ config['MAX_CONTENT_LENGTH'] / (1024 * 1024) }} MB per file)</p>
+
+            <div class="form-group">
+                <label for="ktp_file">KTP (Kartu Tanda Penduduk) <span class="text-danger">*</span></label>
+                <input type="file" id="ktp_file" name="ktp_file" accept=".png,.jpg,.jpeg,.pdf" required>
+            </div>
+
+            <div class="form-group">
+                <label for="npwp_file">NPWP (Nomor Pokok Wajib Pajak) <span class="text-danger">*</span></label>
+                <input type="file" id="npwp_file" name="npwp_file" accept=".png,.jpg,.jpeg,.pdf" required>
+            </div>
+
+            <div class="form-group">
+                <label for="kk_file">Kartu Keluarga (KK) <span class="text-danger">*</span></label>
+                <input type="file" id="kk_file" name="kk_file" accept=".png,.jpg,.jpeg,.pdf" required>
+            </div>
+            
+            <button type="submit" class="submit-button">Daftar</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>

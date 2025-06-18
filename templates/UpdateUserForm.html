@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/UserManagement.css') }}">
+</head>
+<body>
+{% extends 'base_admin.html' %} 
+
+{% block title %}Admin - Update User{% endblock %}
+
+{% block content %}
+<div class="admin-dashboard-container">
+    <h2>Update User: {{ nasabah.Nama_Nasabah | default('User') }}</h2> {# Add default if nasabah is not found #}
+    
+    {# No flash messages here, as per previous request #}
+
+    <form method="POST" action="{{ url_for('updateUser', id=nasabah.ID_Nasabah) }}">
+        <div class="form-group">
+            <label for="Nama_Nasabah">Nama Lengkap</label>
+            <input type="text" id="Nama_Nasabah" name="Nama_Nasabah" 
+                   value="{{ nasabah.Nama_Nasabah | default('') }}" required>
+        </div>
+        <div class="form-group">
+            <label for="Email_Nasabah">Email</label>
+            <input type="email" id="Email_Nasabah" name="Email_Nasabah" 
+                   value="{{ nasabah.Email_Nasabah | default('') }}" required>
+        </div>
+
+        <hr>
+        <h3>Change Password (Optional)</h3>
+        <p class="text-muted">Leave blank if you do not wish to change the password.</p>
+        <div class="form-group">
+            <label for="new_password">New Password</label>
+            <input type="password" id="new_password" name="new_password" placeholder="Minimum 8 characters">
+        </div>
+        {# For better UX, consider adding a "Confirm New Password" field #}
+        {# <div class="form-group">
+            <label for="confirm_password">Confirm New Password</label>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm new password">
+        </div> #}
+
+        <button type="submit" class="submit-button">Update User</button>
+    </form>
+    <a href="{{ url_for('User') }}" class="back-button">← Back to User List</a>
+</div>
+{% endblock %}
+</body>
+</html>

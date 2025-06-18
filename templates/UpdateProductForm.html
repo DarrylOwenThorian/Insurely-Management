@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='UserUpdate.css') }}">
+</head>
+<body>
+    <form method="POST" action="/adminProductManagement/update/{{produk_asuransi.ID_Produk}}" method="post">
+        <label for="">Nama_Produk</label>
+        <input type="text" name="Nama_Produk" placeholder="Nama_Produk" value="{{produk_asuransi.Nama_Produk}}">
+        <br>
+        <label for="">Nama_Jenis_Asuransi</label>
+        <input type="text" name="Nama_Jenis_Asuransi" placeholder="Nama_Jenis_Asuransi" value="{{produk_asuransi.Nama_Jenis_Asuransi}}">
+        <br>
+        <label for="">Masa_Berlaku</label>
+        <input type="text" name="Masa_Berlaku" placeholder="Masa_Berlaku" value="{{produk_asuransi.Masa_Berlaku}}">
+        <br>
+        <label for="">Premi_Bulanan</label>
+        <input type="text" name="Premi_Bulanan" placeholder="Premi_Bulanan" value="{{produk_asuransi.Premi_Bulanan}}">
+        <br>
+        <input type="submit" value="Update">
+</form>
+</body>
+</html>

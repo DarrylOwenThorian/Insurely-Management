@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/UserManagement.css') }}">
+</head>
+<body>
+{% extends 'base_admin.html' %} {# Assuming AddUserForm extends base_admin.html #}
+
+{% block title %}Admin - Add User{% endblock %}
+
+{% block content %}
+<div class="admin-dashboard-container">
+    <h2>Add New User</h2>
+    
+    {# No flash messages here, as per previous request #}
+
+    <form method="POST" action="{{ url_for('addUser') }}">
+        {# REMOVED: ID_Nasabah input field as it's now auto-generated #}
+        {# <div class="form-group">
+            <label for="ID_Nasabah">ID Nasabah</label>
+            <input type="text" id="ID_Nasabah" name="ID_Nasabah" 
+                   value="{{ form_data.ID_Nasabah | default('') }}" required>
+        </div> #}
+
+        <div class="form-group">
+            <label for="Nama_Nasabah">Nama Lengkap</label>
+            <input type="text" id="Nama_Nasabah" name="Nama_Nasabah" 
+                   value="{{ form_data.Nama_Nasabah | default('') }}" required>
+        </div>
+        <div class="form-group">
+            <label for="Email_Nasabah">Email</label>
+            <input type="email" id="Email_Nasabah" name="Email_Nasabah" 
+                   value="{{ form_data.Email_Nasabah | default('') }}" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label> {# NEW: Password field #}
+            <input type="password" id="password" name="password" placeholder="Minimum 8 characters" required>
+        </div>
+        {# You might add a "Confirm Password" field for better UX here too #}
+
+        <button type="submit" class="submit-button">Add User</button>
+    </form>
+    <a href="{{ url_for('User') }}" class="back-button">← Back to User List</a>
+</div>
+{% endblock %}
+</body>
+</html>

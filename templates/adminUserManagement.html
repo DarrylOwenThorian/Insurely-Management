@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+        <link rel="stylesheet" href="../static/UserManagement.css">
+</head>
+<body>
+    {% extends 'base_admin.html' %} {# Assuming your admin pages extend this #}
+
+{% block title %}Manage Users{% endblock %}
+
+{% block content %}
+<div class="admin-dashboard-container">
+    <h2>User Management</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <a href="{{ url_for('addUser') }}" class="btn btn-primary mb-3">Add New User</a>
+
+    <div class="table-responsive">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID Nasabah</th>
+                    <th>Nama Nasabah</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                    <th>Policies</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for nasabah_user in nasabah %} {# Changed loop variable for clarity #}
+                <tr>
+                    <td>{{ nasabah_user.ID_Nasabah }}</td>
+                    <td>{{ nasabah_user.Nama_Nasabah }}</td>
+                    <td>{{ nasabah_user.Email_Nasabah }}</td>
+                    <td>
+                        <a href="{{ url_for('updateUser', id=nasabah_user.ID_Nasabah) }}" class="btn btn-sm btn-info">Edit</a>
+                        <a href="{{ url_for('deleteUser', id=nasabah_user.ID_Nasabah) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+                    </td>
+                    <td>
+                        {# NEW BUTTON/LINK #}
+                        <a href="{{ url_for('adminUserPolicies', nasabah_id=nasabah_user.ID_Nasabah) }}" class="btn btn-sm btn-secondary">View Policies</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="11">No users found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+    
+</body>
+</html>
